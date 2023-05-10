@@ -2,6 +2,7 @@ package com.mindex.challenge.controller;
 
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.service.EmployeeService;
+import com.mindex.challenge.type.ReportingStructure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}")
     public Employee read(@PathVariable String id) {
-        LOG.debug("Received employee create request for id [{}]", id);
+        // correction to logger below; Originally showed "Received employee CREATE request for id [{}]" instead of a READ or GET request.
+        LOG.debug("Received employee read request for id [{}]", id);
 
         return employeeService.read(id);
     }
@@ -34,5 +36,15 @@ public class EmployeeController {
 
         employee.setEmployeeId(id);
         return employeeService.update(employee);
+    }
+
+    @GetMapping("/employee/reporting-structure/{id}")
+    public ReportingStructure getReportingStructure(@PathVariable String id) {
+        LOG.debug("Received employee get request to find Reporting Structure for id [{}]", id);
+
+        ReportingStructure reportingStructure = employeeService.getReportingStructure(id);
+        System.out.println("reportingStructure from Controller = " + reportingStructure);
+
+        return reportingStructure;
     }
 }
