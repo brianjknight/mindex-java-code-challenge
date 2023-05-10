@@ -55,14 +55,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //Uses a private helper method to calculate the number of reports.
         Integer numberOfReports = this.getNumberOfReports(employee);
-        System.out.println("numberOfReports = " + numberOfReports);
 
         //Instantiate a new ReportingStructure object:
         ReportingStructure reportingStructure = new ReportingStructure();
         reportingStructure.setEmployee(employee);
         reportingStructure.setNumberOfReports(numberOfReports);
-
-        System.out.println("ReportingStructure from Service " + reportingStructure);
 
         return reportingStructure;
     }
