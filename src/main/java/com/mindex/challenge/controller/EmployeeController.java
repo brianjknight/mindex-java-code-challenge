@@ -42,9 +42,6 @@ public class EmployeeController {
     public ReportingStructure getReportingStructure(@PathVariable String id) {
         LOG.debug("Received employee get request to find Reporting Structure for id [{}]", id);
 
-        ReportingStructure reportingStructure = employeeService.getReportingStructure(id);
-        System.out.println("reportingStructure from Controller = " + reportingStructure);
-
-        return reportingStructure;
+        return employeeService.getReportingStructure(id);
     }
 }
