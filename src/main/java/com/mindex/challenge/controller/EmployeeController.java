@@ -43,6 +43,10 @@ public class EmployeeController {
         return employeeService.update(employee);
     }
 
+    /**
+     * I extended the existing endpoint path so that a reporting structure can easily be found be simply adding "reporting-structure" to the url.
+     *
+     */
     @GetMapping("/employee/{id}/reporting-structure")
     public ReportingStructure getReportingStructure(@PathVariable String id) {
         LOG.debug("Received employee get request to find Reporting Structure for id [{}]", id);
@@ -50,6 +54,11 @@ public class EmployeeController {
         return employeeService.getReportingStructure(id);
     }
 
+    /**
+     * Endpoint to read the Compensation Repository to retrieve an existing Compensation object.
+     * @param id - Id of the employee for whom you want to find their compensation.
+     * @return Compensation object including the Employee, their salary, and the effective salary date.
+     */
     @GetMapping("/employee/{id}/compensation")
     public Compensation readCompensation(@PathVariable String id) {
         LOG.debug("Received read request compensation for employee id [{}]", id);
@@ -57,6 +66,12 @@ public class EmployeeController {
         return compensationService.read(id);
     }
 
+    /**
+     * Endpoint to create a new compensation object for an employee.
+     * @param id - Id of the employee to create the Compensation for.
+     * @param salary amount of the employee's salary. The string salary is converted to a Double prior to persisting to the database.
+     * @return The compensation persisted to the database.
+     */
     @PostMapping("/employee/{id}/compensation/{salary}")
     public Compensation createCompensation(@PathVariable String id, @PathVariable String salary) {
         LOG.debug("Received request to create compensation for employee id [{}]", id);

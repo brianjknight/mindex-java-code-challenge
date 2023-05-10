@@ -49,6 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.save(employee);
     }
 
+    /**
+     * Method to find the total of reports under a given employee.
+     * @param id - Id of the employee for whom you want to know the number of reports.
+     * @return ReportingStructure object containing the employee and number of reports.
+     */
     public ReportingStructure getReportingStructure(String id) {
         // First read the database to see if the Employee exists.
         Employee employee = this.read(id);
