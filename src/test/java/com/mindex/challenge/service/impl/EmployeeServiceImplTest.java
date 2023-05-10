@@ -2,6 +2,7 @@ package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.service.EmployeeService;
+import com.mindex.challenge.type.ReportingStructure;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ public class EmployeeServiceImplTest {
 
     private String employeeUrl;
     private String employeeIdUrl;
+    private String empolyeeReportStructureUrl;
 
     @Autowired
     private EmployeeService employeeService;
@@ -38,6 +40,7 @@ public class EmployeeServiceImplTest {
     public void setup() {
         employeeUrl = "http://localhost:" + port + "/employee";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
+        empolyeeReportStructureUrl = "http://localhost:" + port + "/employee/reporting-structure/{id}";
     }
 
     @Test
@@ -82,5 +85,22 @@ public class EmployeeServiceImplTest {
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getDepartment(), actual.getDepartment());
         assertEquals(expected.getPosition(), actual.getPosition());
+    }
+
+    public void testGetReportingStructure() {
+        // GIVEN
+        String johnId = "16a596ae-edd3-4847-99fe-c4518e82c86f";
+        Employee john = new Employee();
+        john.setEmployeeId(johnId);
+
+        ReportingStructure expected = new ReportingStructure();
+        expected.setEmployee(john);
+        Integer numberOfReports = 4;
+        expected.setNumberOfReports(numberOfReports);
+
+        ReportingStructure result = restTemplate.getForObject(empolyeeReportStructureUrl, ReportingStructure.class, expected);
+
+        assertEquals(expected.getEmployee().getEmployeeId(), result.getEmployee().getEmployeeId());
+        assertEquals(numberOfReports, result.getNumberOfReports());
     }
 }
